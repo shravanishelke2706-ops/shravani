@@ -1,63 +1,533 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <title>Firebase Student Database</title>
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f4f4;
-        }
-
-        .container {
-            width: 350px;
-            margin: 50px auto;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px gray;
-        }
-
-        input {
-            width: 95%;
-            padding: 10px;
-            margin: 10px 0;
-        }
-
-        button {
-            padding: 10px 20px;
-            margin: 5px;
-            cursor: pointer;
-        }
-
-        #output {
-            margin-top: 20px;
-        }
-    </style>
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TechStore</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
+<body class="bg-gray-100">
 
-<body>
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-white shadow">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
 
-    <div class="container">
+      <!-- Logo -->
+      <h1 class="text-2xl font-bold text-blue-600">
+        TechStore
+      </h1>
 
-        <h2>Firebase Student Database</h2>
+      <!-- Search -->
+      <div class="flex-1 max-w-xl">
+        <input
+          type="text"
+          placeholder="Search gadgets..."
+          class="w-full px-4 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
 
-        <input type="text" id="name" placeholder="Enter Name">
+      <!-- Cart -->
+      <button class="relative p-2 rounded-full hover:bg-gray-100 transition">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2 4h13M10 21a1 1 0 100-2 1 1 0 000 2zm8 0a1 1 0 100-2 1 1 0 000 2z"/>
+        </svg>
 
-        <input type="number" id="age" placeholder="Enter Age">
-
-        <button onclick="saveData()">Save</button>
-
-        <button onclick="loadData()">Show Data</button>
-
-        <div id="output"></div>
+        <span
+          id="cartCount"
+          class="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
+          0
+        </span>
+      </button>
 
     </div>
+  </header>
 
-    <script type="module" src="script.js"></script>
+  <!-- Hero Banner -->
+  <section class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
+    <div class="max-w-7xl mx-auto px-6 py-24 text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-4">
+        Latest Tech Gadgets at 50% Off
+      </h2>
+      <p class="text-lg text-blue-100">
+        Discover amazing deals on smartphones, laptops, headphones, smartwatches, and more.
+      </p>
+      <button class="mt-8 bg-white text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition">
+        Shop Now
+      </button>
+    </div>
+  </section>
 
+  <script>
+    const cartCount = document.getElementById("cartCount");
+    cartCount.textContent = "0";
+  </script>
+<!-- Product Grid -->
+<section class="max-w-7xl mx-auto px-6 py-16">
+  <div class="flex items-center justify-between mb-8">
+    <h2 class="text-3xl font-bold text-gray-800">Featured Products</h2>
+    <a href="#" class="text-blue-600 font-medium hover:underline">View All</a>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+
+    <!-- Product 1 -->
+    <div class="bg-white rounded-2xl shadow-md hover:shadow-xl transition overflow-hidden">
+      <img src="https://via.placeholder.com/400x250?text=Wireless+Headphones"
+           alt="Wireless Headphones"
+           class="w-full h-52 object-cover">
+      <div class="p-5">
+        <h3 class="text-lg font-semibold text-gray-800">Wireless Headphones</h3>
+        <div class="flex justify-between items-center mt-2">
+          <span class="text-2xl font-bold text-blue-600">Rs 2,999</span>
+          <span class="text-yellow-500 font-semibold">⭐ 4.5</span>
+        </div>
+        <button class="mt-5 w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 rounded-lg font-medium transition">
+          Add to Cart
+        </button>
+      </div>
+    </div>
+
+    <!-- Product 2 -->
+    <div class="bg-white rounded-2xl shadow-md hover:shadow-xl transition overflow-hidden">
+      <img src="https://via.placeholder.com/400x250?text=Smart+Watch"
+           alt="Smart Watch"
+           class="w-full h-52 object-cover">
+      <div class="p-5">
+        <h3 class="text-lg font-semibold text-gray-800">Smart Watch</h3>
+        <div class="flex justify-between items-center mt-2">
+          <span class="text-2xl font-bold text-blue-600">Rs 4,499</span>
+          <span class="text-yellow-500 font-semibold">⭐ 4.5</span>
+        </div>
+        <button class="mt-5 w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 rounded-lg font-medium transition">
+          Add to Cart
+        </button>
+      </div>
+    </div>
+
+    <!-- Product 3 -->
+    <div class="bg-white rounded-2xl shadow-md hover:shadow-xl transition overflow-hidden">
+      <img src="https://via.placeholder.com/400x250?text=Bluetooth+Speaker"
+           alt="Bluetooth Speaker"
+           class="w-full h-52 object-cover">
+      <div class="p-5">
+        <h3 class="text-lg font-semibold text-gray-800">Bluetooth Speaker</h3>
+        <div class="flex justify-between items-center mt-2">
+          <span class="text-2xl font-bold text-blue-600">Rs 1,999</span>
+          <span class="text-yellow-500 font-semibold">⭐ 4.5</span>
+        </div>
+        <button class="mt-5 w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 rounded-lg font-medium transition">
+          Add to Cart
+        </button>
+      </div>
+    </div>
+
+    <!-- Product 4 -->
+    <div class="bg-white rounded-2xl shadow-md hover:shadow-xl transition overflow-hidden">
+      <img src="https://via.placeholder.com/400x250?text=Gaming+Mouse"
+           alt="Gaming Mouse"
+           class="w-full h-52 object-cover">
+      <div class="p-5">
+        <h3 class="text-lg font-semibold text-gray-800">Gaming Mouse</h3>
+        <div class="flex justify-between items-center mt-2">
+          <span class="text-2xl font-bold text-blue-600">Rs 1,499</span>
+          <span class="text-yellow-500 font-semibold">⭐ 4.5</span>
+        </div>
+        <button class="mt-5 w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 rounded-lg font-medium transition">
+          Add to Cart
+        </button>
+      </div>
+    </div>
+
+  </div>
+</section>
+<script>
+/* ---------- Products ---------- */
+const products = [
+  { id: 1, name: "Wireless Headphones", price: 2999 },
+  { id: 2, name: "Smart Watch", price: 4499 },
+  { id: 3, name: "Bluetooth Speaker", price: 1999 },
+  { id: 4, name: "Gaming Mouse", price: 1499 }
+];
+
+let cart = [];
+
+/* ---------- Elements ---------- */
+const cartCount = document.getElementById("cartCount");
+
+/* Give your cart button this id:
+<button id="cartBtn" ...>...</button>
+*/
+const cartBtn = document.getElementById("cartBtn");
+
+/* ---------- Create Cart Drawer ---------- */
+const drawer = document.createElement("div");
+drawer.id = "cartDrawer";
+drawer.className =
+  "fixed top-0 right-0 h-full w-80 bg-white shadow-2xl translate-x-full transition-transform duration-300 z-50 flex flex-col";
+
+drawer.innerHTML = `
+<div class="flex items-center justify-between p-4 border-b">
+    <h2 class="text-xl font-bold">Shopping Cart</h2>
+    <button id="closeCart" class="text-2xl">&times;</button>
+</div>
+
+<div id="cartItems" class="flex-1 overflow-y-auto p-4 space-y-4">
+    <p class="text-gray-500 text-center">Your cart is empty.</p>
+</div>
+
+<div class="border-t p-4">
+    <div class="flex justify-between font-bold text-lg">
+        <span>Total</span>
+        <span id="cartTotal">Rs 0</span>
+    </div>
+</div>
+`;
+
+document.body.appendChild(drawer);
+
+/* Overlay */
+const overlay = document.createElement("div");
+overlay.id = "overlay";
+overlay.className =
+  "fixed inset-0 bg-black/40 hidden z-40";
+document.body.appendChild(overlay);
+
+/* ---------- Drawer Controls ---------- */
+function openCart() {
+  drawer.classList.remove("translate-x-full");
+  overlay.classList.remove("hidden");
+}
+
+function closeCart() {
+  drawer.classList.add("translate-x-full");
+  overlay.classList.add("hidden");
+}
+
+cartBtn.addEventListener("click", openCart);
+document.getElementById("closeCart").addEventListener("click", closeCart);
+overlay.addEventListener("click", closeCart);
+
+/* ---------- Add To Cart ---------- */
+function addToCart(id) {
+  const product = products.find(p => p.id === id);
+
+  const existing = cart.find(item => item.id === id);
+
+  if (existing) {
+    existing.qty++;
+  } else {
+    cart.push({ ...product, qty: 1 });
+  }
+
+  renderCart();
+}
+
+/* ---------- Remove ---------- */
+function removeItem(id) {
+  cart = cart.filter(item => item.id !== id);
+  renderCart();
+}
+
+/* ---------- Render ---------- */
+function renderCart() {
+  cartCount.textContent = cart.reduce((sum, item) => sum + item.qty, 0);
+
+  const cartItems = document.getElementById("cartItems");
+
+  if (!cart.length) {
+    cartItems.innerHTML =
+      '<p class="text-center text-gray-500">Your cart is empty.</p>';
+    document.getElementById("cartTotal").textContent = "Rs 0";
+    return;
+  }
+
+  let total = 0;
+
+  cartItems.innerHTML = cart.map(item => {
+    total += item.price * item.qty;
+
+    return `
+      <div class="border rounded-lg p-3">
+          <div class="font-semibold">${item.name}</div>
+
+          <div class="text-sm text-gray-500 mt-1">
+              Qty: ${item.qty}
+          </div>
+
+          <div class="text-blue-600 font-bold">
+              Rs ${item.price}
+          </div>
+
+          <button
+              onclick="removeItem(${item.id})"
+              class="mt-2 text-sm bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded">
+              Remove
+          </button>
+      </div>
+    `;
+  }).join("");
+
+  document.getElementById("cartTotal").textContent = "Rs " + total;
+}
+
+/* ---------- Connect Existing Buttons ---------- */
+/*
+Replace your existing Add to Cart buttons with:
+
+<button onclick="addToCart(1)">Add to Cart</button>
+<button onclick="addToCart(2)">Add to Cart</button>
+<button onclick="addToCart(3)">Add to Cart</button>
+<button onclick="addToCart(4)">Add to Cart</button>
+
+And give your header cart button:
+id="cartBtn"
+*/
+window.removeItem = removeItem;
+window.addToCart = addToCart;
+</script>
+<!-- Replace the bottom section of your Cart Drawer with this -->
+
+<div class="border-t p-4 space-y-3">
+
+  <!-- Promo Code -->
+  <div>
+    <input
+      id="promoCode"
+      type="text"
+      placeholder="Enter Promo Code"
+      class="w-full border rounded-lg p-2">
+    <button
+      onclick="applyPromo()"
+      class="mt-2 w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg">
+      Apply Promo
+    </button>
+    <p id="promoMsg" class="text-sm mt-2"></p>
+  </div>
+
+  <!-- Bill Summary -->
+  <div class="space-y-2 border-t pt-3">
+    <div class="flex justify-between">
+      <span>Subtotal</span>
+      <span id="subtotal">Rs 0</span>
+    </div>
+
+    <div class="flex justify-between text-green-600">
+      <span>Discount</span>
+      <span id="discount">Rs 0</span>
+    </div>
+
+    <div class="flex justify-between text-lg font-bold border-t pt-2">
+      <span>Total Payable</span>
+      <span id="cartTotal">Rs 0</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+let discountPercent = 0;
+
+/* Apply Promo Code */
+function applyPromo() {
+  const code = document.getElementById("promoCode").value.trim().toUpperCase();
+  const msg = document.getElementById("promoMsg");
+
+  if (code === "DISCOUNT10") {
+    discountPercent = 10;
+    msg.innerHTML = "✅ Promo Applied! 10% Discount";
+    msg.className = "text-sm mt-2 text-green-600";
+  } else {
+    discountPercent = 0;
+    msg.innerHTML = "❌ Invalid Promo Code";
+    msg.className = "text-sm mt-2 text-red-600";
+  }
+
+  renderCart();
+}
+
+/* Replace your existing renderCart() with this version */
+
+function renderCart() {
+
+  cartCount.textContent = cart.reduce((sum, item) => sum + item.qty, 0);
+
+  const cartItems = document.getElementById("cartItems");
+
+  if (!cart.length) {
+    cartItems.innerHTML =
+      '<p class="text-center text-gray-500">Your cart is empty.</p>';
+
+    document.getElementById("subtotal").textContent = "Rs 0";
+    document.getElementById("discount").textContent = "Rs 0";
+    document.getElementById("cartTotal").textContent = "Rs 0";
+
+    return;
+  }
+
+  let subtotal = 0;
+
+  cartItems.innerHTML = cart.map(item => {
+
+    subtotal += item.price * item.qty;
+
+    return `
+      <div class="border rounded-lg p-3 flex justify-between items-start">
+        <div>
+          <h4 class="font-semibold">${item.name}</h4>
+          <p class="text-sm text-gray-500">Qty: ${item.qty}</p>
+          <p class="font-bold text-blue-600">Rs ${item.price}</p>
+        </div>
+
+        <button
+          onclick="removeItem(${item.id})"
+          class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded">
+          Remove
+        </button>
+      </div>
+    `;
+
+  }).join("");
+
+  const discount = subtotal * discountPercent / 100;
+  const total = subtotal - discount;
+
+  document.getElementById("subtotal").textContent =
+    "Rs " + subtotal.toFixed(2);
+
+  document.getElementById("discount").textContent =
+    "- Rs " + discount.toFixed(2);
+
+  document.getElementById("cartTotal").textContent =
+    "Rs " + total.toFixed(2);
+}
+</script>
+<!-- Add this inside the Cart Drawer (below Total Payable) -->
+<button
+  onclick="openCheckout()"
+  class="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold">
+  Proceed to Checkout
+</button>
+
+<!-- Checkout Modal -->
+<div id="checkoutModal"
+     class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
+  <div class="bg-white rounded-xl shadow-xl w-96 p-6">
+    <h2 class="text-2xl font-bold mb-4">Checkout</h2>
+
+    <input
+      id="customerName"
+      type="text"
+      placeholder="Customer Name"
+      class="w-full border rounded-lg p-3 mb-3">
+
+    <textarea
+      id="customerAddress"
+      rows="4"
+      placeholder="Delivery Address"
+      class="w-full border rounded-lg p-3 mb-4"></textarea>
+
+    <div class="flex gap-3">
+      <button
+        onclick="closeCheckout()"
+        class="w-1/2 border rounded-lg py-2">
+        Cancel
+      </button>
+
+      <button
+        onclick="placeOrder()"
+        class="w-1/2 bg-green-600 hover:bg-green-700 text-white rounded-lg py-2">
+        Place Order
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Success Popup -->
+<div id="successPopup"
+     class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
+  <div class="bg-white rounded-xl shadow-xl p-8 text-center w-96">
+
+    <div class="w-20 h-20 mx-auto rounded-full bg-green-100 flex items-center justify-center">
+      <span class="text-5xl text-green-600">✓</span>
+    </div>
+
+    <h2 class="text-2xl font-bold mt-5">
+      Order Placed Successfully!
+    </h2>
+
+    <p class="text-gray-600 mt-2">
+      Your Order ID is
+      <span class="font-bold text-blue-600">#1024</span>
+    </p>
+
+    <button
+      onclick="closeSuccess()"
+      class="mt-6 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg">
+      OK
+    </button>
+
+  </div>
+</div>
+
+<script>
+function openCheckout() {
+  if (cart.length === 0) {
+    alert("Your cart is empty.");
+    return;
+  }
+
+  document.getElementById("checkoutModal").classList.remove("hidden");
+  document.getElementById("checkoutModal").classList.add("flex");
+}
+
+function closeCheckout() {
+  document.getElementById("checkoutModal").classList.add("hidden");
+  document.getElementById("checkoutModal").classList.remove("flex");
+}
+
+function placeOrder() {
+
+  const name = document.getElementById("customerName").value.trim();
+  const address = document.getElementById("customerAddress").value.trim();
+
+  if (!name || !address) {
+    alert("Please fill all checkout details.");
+    return;
+  }
+
+  /* Clear Cart */
+  cart = [];
+  discountPercent = 0;
+
+  document.getElementById("promoCode").value = "";
+  document.getElementById("promoMsg").innerHTML = "";
+
+  renderCart();
+
+  /* Reset badge */
+  cartCount.textContent = "0";
+
+  /* Close Cart & Checkout */
+  closeCheckout();
+  closeCart();
+
+  /* Reset Form */
+  document.getElementById("customerName").value = "";
+  document.getElementById("customerAddress").value = "";
+
+  /* Show Success Popup */
+  document.getElementById("successPopup").classList.remove("hidden");
+  document.getElementById("successPopup").classList.add("flex");
+}
+
+function closeSuccess() {
+  document.getElementById("successPopup").classList.add("hidden");
+  document.getElementById("successPopup").classList.remove("flex");
+}
+</script>
+<script>
+(function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="ToxYlVQcUcm0qj181F8m8";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
+</script>
 </body>
-
 </html>
